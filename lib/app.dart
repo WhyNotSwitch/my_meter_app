@@ -3,6 +3,8 @@ import 'screens/home_screen.dart';
 import 'utils/constants.dart';
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,7 @@ class App extends StatelessWidget {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => const HomeScreen(),
         );
     }
   }
