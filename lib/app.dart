@@ -37,6 +37,10 @@ class App extends StatelessWidget {
             },
           ),
         );
+      case '/home':
+        return MaterialPageRoute(
+          builder: (context) => const HomeScreen(),
+        );
     }
   }
 }
