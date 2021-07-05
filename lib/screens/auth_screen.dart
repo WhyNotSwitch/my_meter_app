@@ -136,8 +136,6 @@ class _AuthScreenState extends State<AuthScreen> {
                                       await api.authenticateEmail(
                                     _emailController.text.toString(),
                                   );
-                                  print(
-                                      'detail: ${responseFromEmailAuthentication.detail}, email: ${responseFromEmailAuthentication.email?[0]}, status code: ${responseFromEmailAuthentication.statusCode}');
                                   if (responseFromEmailAuthentication
                                           .statusCode ==
                                       200) {
@@ -288,22 +286,21 @@ class _AuthScreenState extends State<AuthScreen> {
                                   _emailController.text.toString(),
                                   int.parse(_tokenController.text.toString()),
                                 );
-                                print(
-                                    'authorization token: ${responseFromTokenAuthentication.authorizationToken}, otp token: ${responseFromTokenAuthentication.otpToken?[0]}, status code: ${responseFromTokenAuthentication.statusCode}');
                                 if (responseFromTokenAuthentication
                                         .statusCode ==
                                     200) {
                                   setState(
                                     () {
-                                      //_showBottomSheet = false;
                                       _processing = false;
                                       _tokenEnabled = true;
                                     },
                                   );
-                                  /*shared_prefs
-                                            .saveUserToken(responseFromTokenAuthentication.authorizationToken);
-                                        Navigator.of(context)
-                                            .pushReplacementNamed('/home');*/
+                                  shared_prefs.saveUserToken(
+                                      responseFromTokenAuthentication
+                                          .authorizationToken);
+                                  Navigator.of(bottomSheetContext).pop();
+                                  Navigator.of(context)
+                                      .pushReplacementNamed('/home');
                                 } else {
                                   setState(
                                     () {
@@ -318,6 +315,13 @@ class _AuthScreenState extends State<AuthScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (dialogContext) => AlertDialog(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            constants.padding,
+                                          ),
+                                        ),
+                                      ),
                                       title: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: const [
